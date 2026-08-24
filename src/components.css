@@ -140,7 +140,6 @@
 @media (max-width: 900px) {
   .hamburger { display: flex; }
   .navbar-links { display: none !important; }
-  .navbar-hire { display: none !important; }
 }
 
 /* ═══════════════════════════════════════════════
@@ -324,7 +323,7 @@
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: var(--accent-secondary);
 }
 .form-input, .form-textarea {
   background: rgba(255,255,255,0.04);

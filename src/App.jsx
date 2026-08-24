@@ -1,33 +1,42 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import Hero3D from './components/Hero3D';
+import { 
+  FaBrain, FaRobot, FaEye, FaRecycle, FaTicketSimple, FaSchool, 
+  FaEnvelope, FaPhone, FaLinkedin, FaGithub, FaCode, FaLaptopCode, 
+  FaServer, FaNetworkWired, FaDiagramProject
+} from 'react-icons/fa6';
+import { 
+  SiPython, SiTensorflow, SiReact, SiNodedotjs, SiTypescript, 
+  SiJavascript, SiHtml5, SiPostgresql, SiGit, SiCplusplus, SiOpencv
+} from 'react-icons/si';
 import './App.css';
 import './index.css';
 import './components.css';
 
 // ─── Data ────────────────────────────────────────────────────────
 const skillsData = [
-  { name: 'Python',           icon: '🐍', pct: 90 },
-  { name: 'TensorFlow/Keras', icon: '🧠', pct: 85 },
-  { name: 'Computer Vision',  icon: '👁️', pct: 80 },
-  { name: 'Machine Learning', icon: '🤖', pct: 82 },
-  { name: 'React.js',         icon: '⚛️', pct: 88 },
-  { name: 'Node.js',          icon: '🟢', pct: 80 },
-  { name: 'TypeScript',       icon: '🔷', pct: 75 },
-  { name: 'JavaScript',       icon: '💛', pct: 90 },
-  { name: 'HTML / CSS',       icon: '🎨', pct: 92 },
-  { name: 'SQL',              icon: '🗄️', pct: 78 },
-  { name: 'Git & GitHub',     icon: '🌿', pct: 85 },
-  { name: 'REST APIs',        icon: '🔗', pct: 82 },
-  { name: 'CNN / MobileNet',  icon: '📡', pct: 80 },
-  { name: 'OpenCV',           icon: '🔬', pct: 75 },
-  { name: 'C / C++',          icon: '⚙️', pct: 65 },
-  { name: 'Data Preprocessing',icon: '📊', pct: 78 },
+  { name: 'Python',           icon: <SiPython style={{ color: '#3776AB' }} />, pct: 90 },
+  { name: 'TensorFlow/Keras', icon: <SiTensorflow style={{ color: '#FF6F00' }} />, pct: 85 },
+  { name: 'Computer Vision',  icon: <FaEye style={{ color: '#34d399' }} />, pct: 80 },
+  { name: 'Machine Learning', icon: <FaRobot style={{ color: '#fbbf24' }} />, pct: 82 },
+  { name: 'React.js',         icon: <SiReact style={{ color: '#61DAFB' }} />, pct: 88 },
+  { name: 'Node.js',          icon: <SiNodedotjs style={{ color: '#5FA04E' }} />, pct: 80 },
+  { name: 'TypeScript',       icon: <SiTypescript style={{ color: '#3178C6' }} />, pct: 75 },
+  { name: 'JavaScript',       icon: <SiJavascript style={{ color: '#F7DF1E' }} />, pct: 90 },
+  { name: 'HTML / CSS',       icon: <SiHtml5 style={{ color: '#E34F26' }} />, pct: 92 },
+  { name: 'SQL',              icon: <SiPostgresql style={{ color: '#4169E1' }} />, pct: 78 },
+  { name: 'Git & GitHub',     icon: <SiGit style={{ color: '#F05032' }} />, pct: 85 },
+  { name: 'REST APIs',        icon: <FaServer style={{ color: '#10b981' }} />, pct: 82 },
+  { name: 'CNN / MobileNet',  icon: <FaNetworkWired style={{ color: '#a7f3d0' }} />, pct: 80 },
+  { name: 'OpenCV',           icon: <SiOpencv style={{ color: '#5C3EE8' }} />, pct: 75 },
+  { name: 'C / C++',          icon: <SiCplusplus style={{ color: '#00599C' }} />, pct: 65 },
+  { name: 'Data Preprocessing',icon: <FaDiagramProject style={{ color: '#fbbf24' }} />, pct: 78 },
 ];
 
 const projects = [
   {
-    icon: '♻️',
+    icon: <FaRecycle style={{ color: '#10b981' }} />,
     title: 'AI-Powered Recycling Platform',
     desc: 'Gamified waste recycling web application with real-time AI image classification. Built with React.js, Node.js, TypeScript and Neon Database.',
     longDesc: 'A full-stack gamified web application that encourages recycling through AI. Users upload photos of waste, and the system instantly classifies it using a CNN model built on MobileNetV2 with transfer learning. Points are awarded for correct recycling, powering a leaderboard system. The backend uses Node.js with RESTful APIs connected to a Neon PostgreSQL database.',
@@ -39,9 +48,10 @@ const projects = [
       'Neon PostgreSQL database for persistent storage',
       'MobileNetV2 transfer learning model',
     ],
+    link: 'https://github.com/rameez-hub125/treasure-to-trash'
   },
   {
-    icon: '🧠',
+    icon: <FaBrain style={{ color: '#fbbf24' }} />,
     title: 'CNN Image Classifier',
     desc: 'Trained, tested, evaluated and optimized convolutional neural network models for real-world computer vision applications.',
     longDesc: 'A comprehensive deep learning project covering the full ML pipeline — data collection, preprocessing, augmentation, model architecture design, training, evaluation and optimization. Used MobileNetV2 with fine-tuning and custom dense layers to achieve high accuracy on multi-class classification tasks.',
@@ -53,9 +63,10 @@ const projects = [
       'Model optimization and hyperparameter tuning',
       'OpenCV-based image preprocessing pipeline',
     ],
+    link: 'https://www.kaggle.com/code/bsf58rameezraza/fyp-cnn-model'
   },
   {
-    icon: '🎟️',
+    icon: <FaTicketSimple style={{ color: '#61DAFB' }} />,
     title: 'Ticketing System',
     desc: 'Full-featured ticketing management system with real-time updates, role-based access control, and clean admin dashboard.',
     longDesc: 'A full-stack event ticketing platform with multi-role access (Admin, Manager, Staff). Admins can create events, set ticket quotas, and monitor sales. The dashboard shows real-time stats and the system handles concurrent bookings gracefully.',
@@ -69,7 +80,7 @@ const projects = [
     ],
   },
   {
-    icon: '🏫',
+    icon: <FaSchool style={{ color: '#34d399' }} />,
     title: 'School Management System',
     desc: 'Comprehensive school management POS system for handling students, teachers, and administrative tasks with intuitive dashboards.',
     longDesc: 'A comprehensive school ERP system with modules for student registration, fee management, attendance tracking, and report generation. Built as a POS-style interface for ease of use by non-technical school staff.',
@@ -81,6 +92,7 @@ const projects = [
       'POS-style intuitive interface',
       'SQL-backed data with relational structure',
     ],
+    link: 'https://github.com/rameez-hub125/School-Managment-sys'
   },
 ];
 
@@ -316,7 +328,12 @@ function Navbar() {
         <div className="navbar-inner">
           <a href="#about" className="navbar-logo" style={{ textDecoration: 'none', cursor: 'pointer' }}
             onClick={e => navTo(e, 'about')}>
-            RAMEEZ HERE !
+            <span className="logo-icon-box">
+              <FaCode style={{ color: 'var(--accent-primary)', fontSize: '1.1rem' }} />
+            </span>
+            <span className="logo-text">
+              RAMEEZ <span className="logo-accent">RAZA</span>
+            </span>
           </a>
           <ul className="navbar-links">
             {navLinks.map(({ label, id }) => (
@@ -342,11 +359,6 @@ function Navbar() {
         {navLinks.map(({ label, id }) => (
           <a key={id} href={`#${id}`} onClick={e => navTo(e, id)}>{label}</a>
         ))}
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mrrameez32@gmail.com"
-          target="_blank" rel="noopener noreferrer"
-          className="btn btn-primary" style={{ marginTop: '1rem' }}>
-          Hire Me
-        </a>
       </div>
     </>
   );
@@ -399,13 +411,12 @@ function HeroSection() {
               I build intelligent systems and beautiful digital experiences.
             </p>
             <div className="hero-buttons">
-              <a href="#contact" className="btn btn-primary" id="hero-contact-btn"
-                onClick={e => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}>
-                Get In Touch →
-              </a>
-              <a href="#projects" className="btn btn-outline" id="hero-projects-btn"
+              <a href="#projects" className="btn btn-primary" id="hero-projects-btn"
                 onClick={e => { e.preventDefault(); document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); }}>
-                View Projects
+                🚀 View Projects
+              </a>
+              <a href="/RAMEEZcs.pdf" download="Muhammad_Rameez_Raza_CV.pdf" className="btn btn-outline" id="hero-cv-btn">
+                📄 Download CV
               </a>
             </div>
             <div className="hero-stats">
@@ -414,7 +425,7 @@ function HeroSection() {
                 <span className="stat-label">Projects</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number"><AnimatedCounter target={3} suffix="." /><AnimatedCounter target={8} /></span>
+                <span className="stat-number"><AnimatedCounter target={3} suffix=".0" /><AnimatedCounter target={8} /></span>
                 <span className="stat-label">CGPA (prev)</span>
               </div>
               <div className="stat-item">
@@ -436,9 +447,15 @@ function HeroSection() {
               <div className="profile-photo-ring" style={{ transform: 'translateZ(-10px)' }} />
               <div className="profile-photo-ring-inner" style={{ transform: 'translateZ(-5px)' }} />
               <img src="/profile.jpg" alt="Muhammad Rameez Raza" className="profile-photo" style={{ transform: 'translateZ(10px)' }} />
-              <div className="profile-tech-badge badge-ai">🧠 AI Engineer</div>
-              <div className="profile-tech-badge badge-fullstack">💻 Full-Stack Dev</div>
-              <div className="profile-tech-badge badge-cv">👁️ Computer Vision</div>
+              <div className="profile-tech-badge badge-ai" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <FaBrain style={{ color: '#10b981' }} /> AI & ML Engineer
+              </div>
+              <div className="profile-tech-badge badge-fullstack" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <FaLaptopCode style={{ color: '#fbbf24' }} /> Full-Stack Dev
+              </div>
+              <div className="profile-tech-badge badge-cv" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <FaEye style={{ color: '#34d399' }} /> Computer Vision
+              </div>
             </div>
           </div>
         </div>
@@ -521,8 +538,20 @@ function ExperienceSection() {
         <div className="timeline reveal">
           <div className="timeline-item">
             <div className="timeline-dot" />
+            <p className="timeline-date">June 2026 – September 2026</p>
+            <h3 className="timeline-role">MERN Stack Internship</h3>
+            <p className="timeline-company">Exelia Technologies</p>
+            <ul className="timeline-desc">
+              <li>Completed a 3-month internship gaining practical experience in software development within a professional IT environment.</li>
+              <li>Worked with MERN Stack technologies (MongoDB, Express.js, React.js, and Node.js) on real-world web applications.</li>
+              <li>Contributed to frontend implementation, backend API development, and database integration.</li>
+              <li>Performed debugging and code optimization to improve overall application functionality and performance.</li>
+            </ul>
+          </div>
+          <div className="timeline-item">
+            <div className="timeline-dot" />
             <p className="timeline-date">July 2025 – April 2026</p>
-            <h3 className="timeline-role">AI & Full-Stack Developer</h3>
+            <h3 className="timeline-role">AI &amp; Full-Stack Developer</h3>
             <p className="timeline-company">University of Education, Lahore</p>
             <ul className="timeline-desc">
               <li>Designed and developed a gamified waste recycling web application using React.js, Node.js, TypeScript, and Neon Database.</li>
@@ -537,6 +566,7 @@ function ExperienceSection() {
     </section>
   );
 }
+
 
 // ═══════════════════════════════════════════════════════════════
 // PROJECT MODAL
@@ -586,7 +616,10 @@ function ProjectsSection() {
           {projects.map((p, i) => (
             <div key={p.title} className="project-card reveal"
               style={{ transitionDelay: `${i * 0.1}s` }}
-              onClick={() => setActiveProject(p)}>
+              onClick={() => {
+                if (p.link) window.open(p.link, '_blank', 'noopener,noreferrer');
+                else setActiveProject(p);
+              }}>
               <span className="project-icon">{p.icon}</span>
               <h3 className="project-title">{p.title}</h3>
               <p className="project-desc">{p.desc}</p>
@@ -594,7 +627,7 @@ function ProjectsSection() {
                 {p.tags.map(t => <span key={t} className="project-tag">{t}</span>)}
               </div>
               <p style={{ marginTop: '1rem', fontSize: '0.82rem', color: 'var(--accent-primary)', fontWeight: 600 }}>
-                Click to view details →
+                {p.link ? 'View Live Project ↗' : 'Click to view details →'}
               </p>
             </div>
           ))}
@@ -638,10 +671,10 @@ function ContactSection() {
   const [loading, setLoading] = useState(false);
 
   const contacts = [
-    { icon: '📧', type: 'Email',    value: 'mrrameez32@gmail.com',                      href: 'https://mail.google.com/mail/?view=cm&fs=1&to=mrrameez32@gmail.com', external: true },
-    { icon: '📞', type: 'Phone',    value: '+92 304 6179842',                            href: 'tel:+923046179842', external: false },
-    { icon: '💼', type: 'LinkedIn', value: 'linkedin.com/in/rameez-raza-48bb72413',      href: 'https://www.linkedin.com/in/rameez-raza-48bb72413', external: true },
-    { icon: '🐙', type: 'GitHub',   value: 'github.com/rameez-hub125',                  href: 'https://github.com/rameez-hub125', external: true },
+    { icon: <FaEnvelope style={{ color: '#10b981' }} />, type: 'Email',    value: 'mrrameez32@gmail.com',                      href: 'https://mail.google.com/mail/?view=cm&fs=1&to=mrrameez32@gmail.com', external: true },
+    { icon: <FaPhone style={{ color: '#fbbf24' }} />, type: 'Phone',    value: '+92 304 6179842',                            href: 'tel:+923046179842', external: false },
+    { icon: <FaLinkedin style={{ color: '#0A66C2' }} />, type: 'LinkedIn', value: 'linkedin.com/in/rameez-raza-48bb72413',      href: 'https://www.linkedin.com/in/rameez-raza-48bb72413', external: true },
+    { icon: <FaGithub style={{ color: '#ffffff' }} />, type: 'GitHub',   value: 'github.com/rameez-hub125',                  href: 'https://github.com/rameez-hub125', external: true },
   ];
 
   const handleSubmit = async (e) => {
@@ -757,7 +790,7 @@ function App() {
         <EducationSection />
         <ContactSection />
         <footer className="footer">
-          <p>Designed & Built with ❤️ by{' '}
+          <p>Designed & Built by{' '}
             <span style={{ color: 'var(--accent-primary)' }}>Muhammad Rameez Raza</span>
             {' '}· {new Date().getFullYear()}
           </p>

@@ -59,6 +59,7 @@ function MorphingCore() {
   const icoRef2 = useRef();
   const icoRef3 = useRef();
   const glowRef = useRef();
+  const matRef = useRef();
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
@@ -75,38 +76,47 @@ function MorphingCore() {
       icoRef3.current.rotation.z = t * 0.2;
     }
     if (glowRef.current) {
-      const pulse = 1 + Math.sin(t * 2) * 0.08;
+      const pulse = 1 + Math.sin(t * 2.5) * 0.12;
       glowRef.current.scale.setScalar(pulse);
+    }
+
+    // Dynamic HSL color cycling for inner orb
+    if (matRef.current) {
+      const hue = (t * 0.08) % 1; // Cycle through colors
+      const color = new THREE.Color().setHSL(hue, 0.9, 0.5);
+      const emissive = new THREE.Color().setHSL(hue, 0.9, 0.4);
+      matRef.current.color = color;
+      matRef.current.emissive = emissive;
     }
   });
 
   return (
-    <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+    <Float speed={2} rotationIntensity={0.4} floatIntensity={0.8}>
       {/* Outer wireframe icosahedron */}
       <mesh ref={icoRef}>
-        <icosahedronGeometry args={[1.8, 1]} />
+        <icosahedronGeometry args={[1.9, 1]} />
         <meshStandardMaterial color="#10b981" emissive="#10b981"
-          emissiveIntensity={0.8} wireframe transparent opacity={0.6} />
+          emissiveIntensity={1} wireframe transparent opacity={0.75} />
       </mesh>
 
       {/* Mid octahedron */}
       <mesh ref={icoRef2}>
-        <octahedronGeometry args={[1.3, 0]} />
+        <octahedronGeometry args={[1.4, 0]} />
         <meshStandardMaterial color="#fbbf24" emissive="#fbbf24"
-          emissiveIntensity={0.6} wireframe transparent opacity={0.5} />
+          emissiveIntensity={0.8} wireframe transparent opacity={0.65} />
       </mesh>
 
       {/* Inner rotating tetrahedron */}
       <mesh ref={icoRef3}>
-        <tetrahedronGeometry args={[0.9, 0]} />
-        <meshStandardMaterial color="#34d399" emissive="#34d399"
-          emissiveIntensity={1} wireframe transparent opacity={0.8} />
+        <tetrahedronGeometry args={[0.95, 0]} />
+        <meshStandardMaterial color="#06b6d4" emissive="#06b6d4"
+          emissiveIntensity={1.2} wireframe transparent opacity={0.85} />
       </mesh>
 
-      {/* Glowing pulsing sphere core */}
+      {/* Glowing pulsing sphere core with dynamic HSL color shift */}
       <Sphere ref={glowRef} args={[0.55, 32, 32]}>
-        <MeshDistortMaterial color="#10b981" emissive="#059669"
-          emissiveIntensity={1.5} distort={0.5} speed={3}
+        <MeshDistortMaterial ref={matRef} color="#10b981" emissive="#059669"
+          emissiveIntensity={2} distort={0.55} speed={4}
           roughness={0} metalness={0.9} transparent opacity={0.9} />
       </Sphere>
     </Float>
@@ -117,7 +127,6 @@ function MorphingCore() {
 // 3. NEURAL NETWORK — nodes + electric connections
 // ═══════════════════════════════════════════════════════════════
 function NeuralNetwork() {
-  const linesRef = useRef();
   const groupRef = useRef();
 
   const { nodes, connections } = useMemo(() => {
@@ -165,14 +174,41 @@ function NeuralNetwork() {
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[linePositions, 3]} />
         </bufferGeometry>
-        <lineBasicMaterial color="#10b981" transparent opacity={0.15} />
+        <lineBasicMaterial color="#10b981" transparent opacity={0.2} />
       </lineSegments>
 
       {/* Node spheres */}
       {nodes.map((pos, i) => (
         <NeuralNode key={i} position={pos} index={i} />
       ))}
+
+      {/* Active AI Signal Pulses along connections */}
+      {connections.slice(0, 15).map(([i, j], idx) => (
+        <NeuralSignalPulse
+          key={`pulse-${idx}`}
+          startNode={nodes[i]}
+          endNode={nodes[j]}
+          speed={0.3 + (idx % 4) * 0.15}
+          color={idx % 3 === 0 ? '#10b981' : idx % 3 === 1 ? '#fbbf24' : '#06b6d4'}
+        />
+      ))}
     </group>
+  );
+}
+
+function NeuralSignalPulse({ startNode, endNode, speed, color }) {
+  const meshRef = useRef();
+  useFrame((state) => {
+    if (meshRef.current) {
+      const t = (state.clock.getElapsedTime() * speed) % 1;
+      meshRef.current.position.lerpVectors(startNode, endNode, t);
+    }
+  });
+  return (
+    <mesh ref={meshRef}>
+      <sphereGeometry args={[0.08, 8, 8]} />
+      <meshStandardMaterial color={color} emissive={color} emissiveIntensity={3} transparent opacity={0.9} />
+    </mesh>
   );
 }
 
@@ -355,9 +391,10 @@ function Comet({ index }) {
 // ═══════════════════════════════════════════════════════════════
 // 6. FLOATING BINARY PARTICLES
 // ═══════════════════════════════════════════════════════════════
+const miniSnippets = ['01', '10', '{}', '=>', '//', '&&', '||', '!=', '==', '[]', '++', '--', '<<', '>>', '**'];
+
 function FloatingCodeDust({ count = 50 }) {
   const groupRef = useRef();
-  const miniSnippets = ['01', '10', '{}', '=>', '//', '&&', '||', '!=', '==', '[]', '++', '--', '<<', '>>', '**'];
 
   const particles = useMemo(() =>
     Array.from({ length: count }, (_, i) => ({
@@ -366,7 +403,7 @@ function FloatingCodeDust({ count = 50 }) {
       speed: 0.08 + Math.random() * 0.25,
       phase: Math.random() * Math.PI * 2,
       opacity: 0.12 + Math.random() * 0.25,
-    })), []);
+    })), [count]);
 
   useFrame((state) => {
     if (groupRef.current)
@@ -399,13 +436,244 @@ function DriftText({ text, position, speed, phase, opacity }) {
   );
 }
 
+function DynamicLights() {
+  const light1 = useRef();
+  const light2 = useRef();
+  const light3 = useRef();
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    if (light1.current) {
+      light1.current.position.x = Math.sin(t * 0.8) * 12;
+      light1.current.position.y = Math.cos(t * 0.6) * 8;
+      light1.current.position.z = Math.sin(t * 0.5) * 6;
+    }
+    if (light2.current) {
+      light2.current.position.x = Math.cos(t * 0.7) * -14;
+      light2.current.position.y = Math.sin(t * 0.9) * -10;
+      light2.current.position.z = Math.cos(t * 0.4) * 8;
+    }
+    if (light3.current) {
+      light3.current.position.x = Math.sin(t * 0.5) * -10;
+      light3.current.position.y = Math.cos(t * 0.8) * 8;
+    }
+  });
+
+  return (
+    <>
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[10, 10, 5]} intensity={1.2} />
+      <pointLight ref={light1} intensity={5} color="#10b981" distance={30} />
+      <pointLight ref={light2} intensity={4.5} color="#fbbf24" distance={30} />
+      <pointLight ref={light3} intensity={4} color="#06b6d4" distance={30} />
+    </>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// 7. INTERACTIVE CAMERA PARALLAX RIG
+// ═══════════════════════════════════════════════════════════════
+function InteractiveCameraRig() {
+  useFrame((state) => {
+    state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, state.pointer.x * 2.8, 0.04);
+    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, state.pointer.y * 2.8, 0.04);
+    state.camera.lookAt(0, 0, 0);
+  });
+  return null;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// 8. QUANTUM CYBER WAVE GRID
+// ═══════════════════════════════════════════════════════════════
+function CyberGridWave() {
+  const meshRef = useRef();
+  const gridGeom = useMemo(() => new THREE.PlaneGeometry(45, 45, 35, 35), []);
+
+  useFrame((state) => {
+    if (meshRef.current) {
+      const pos = meshRef.current.geometry.attributes.position;
+      const t = state.clock.getElapsedTime();
+      for (let i = 0; i < pos.count; i++) {
+        const u = pos.getX(i);
+        const v = pos.getY(i);
+        const z = Math.sin(u * 0.3 + t * 1.4) * Math.cos(v * 0.3 + t * 1.4) * 0.7;
+        pos.setZ(i, z);
+      }
+      pos.needsUpdate = true;
+    }
+  });
+
+  return (
+    <mesh ref={meshRef} rotation={[-Math.PI / 2.3, 0, 0]} position={[0, -9.5, -4]}>
+      <primitive object={gridGeom} attach="geometry" />
+      <meshStandardMaterial color="#10b981" emissive="#059669" emissiveIntensity={0.6} wireframe transparent opacity={0.22} />
+    </mesh>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// 9. MOUSE CURSOR SPOTLIGHT
+// ═══════════════════════════════════════════════════════════════
+function MouseCursorSpotlight() {
+  const lightRef = useRef();
+  useFrame((state) => {
+    if (lightRef.current) {
+      lightRef.current.position.x = state.pointer.x * 14;
+      lightRef.current.position.y = state.pointer.y * 9;
+      lightRef.current.position.z = 7;
+    }
+  });
+  return <pointLight ref={lightRef} intensity={7} color="#34d399" distance={20} />;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// 10. FLOATING CYBER DATA CUBES
+// ═══════════════════════════════════════════════════════════════
+function FloatingCyberCubes() {
+  const cubes = useMemo(() => [
+    { pos: [11.5, 4.5, -2], color: '#10b981', scale: 0.75, speed: 0.4 },
+    { pos: [-12.5, -4, -3], color: '#fbbf24', scale: 0.65, speed: 0.3 },
+    { pos: [12, -5.5, 2], color: '#06b6d4', scale: 0.6, speed: 0.5 },
+    { pos: [-10.5, 5, 1], color: '#a855f7', scale: 0.7, speed: 0.35 },
+  ], []);
+
+  return (
+    <>
+      {cubes.map((c, i) => (
+        <CyberCube key={i} {...c} />
+      ))}
+    </>
+  );
+}
+
+function CyberCube({ pos, color, scale, speed }) {
+  const groupRef = useRef();
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime() * speed;
+    if (groupRef.current) {
+      groupRef.current.rotation.x = t * 0.8;
+      groupRef.current.rotation.y = t * 1.2;
+      groupRef.current.position.y = pos[1] + Math.sin(t * 1.5) * 0.5;
+    }
+  });
+
+  return (
+    <Float speed={1.8} rotationIntensity={0.6} floatIntensity={0.6}>
+      <group ref={groupRef} position={pos} scale={scale}>
+        <mesh>
+          <boxGeometry args={[1.3, 1.3, 1.3]} />
+          <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.9} wireframe transparent opacity={0.6} />
+        </mesh>
+        <mesh>
+          <sphereGeometry args={[0.32, 16, 16]} />
+          <meshStandardMaterial color={color} emissive={color} emissiveIntensity={2.2} />
+        </mesh>
+      </group>
+    </Float>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// 11. HOLOGRAPHIC MATRIX CODE RAIN
+// ═══════════════════════════════════════════════════════════════
+const MATRIX_CHARS = ['0', '1', '101', '010', 'AI', 'ML', 'fit()', 'def', 'var', '=>', '{}', '[]', 'tf', 'cv2'];
+
+function MatrixCodeRain({ count = 22 }) {
+  const columns = useMemo(() =>
+    Array.from({ length: count }, (_, i) => ({
+      x: (Math.random() - 0.5) * 48,
+      z: -4 - Math.random() * 18,
+      speed: 2.2 + Math.random() * 3.5,
+      chars: Array.from({ length: 5 }, () => MATRIX_CHARS[Math.floor(Math.random() * MATRIX_CHARS.length)]),
+      delay: Math.random() * 6,
+      color: i % 3 === 0 ? '#10b981' : i % 3 === 1 ? '#fbbf24' : '#06b6d4',
+    })), [count]);
+
+  return (
+    <>
+      {columns.map((col, i) => (
+        <MatrixColumn key={i} {...col} />
+      ))}
+    </>
+  );
+}
+
+function MatrixColumn({ x, z, speed, chars, delay, color }) {
+  const groupRef = useRef();
+
+  useFrame((state) => {
+    const t = (state.clock.getElapsedTime() + delay) * speed;
+    if (groupRef.current) {
+      groupRef.current.position.y = 16 - (t % 32);
+    }
+  });
+
+  return (
+    <group ref={groupRef} position={[x, 16, z]}>
+      {chars.map((ch, idx) => (
+        <Text
+          key={idx}
+          position={[0, -idx * 0.75, 0]}
+          fontSize={0.2}
+          color={color}
+          fillOpacity={Math.max(0.1, 0.85 - idx * 0.16)}
+          anchorX="center"
+          anchorY="middle"
+        >
+          {ch}
+        </Text>
+      ))}
+    </group>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// 12. HOLOGRAPHIC ENERGY PULSE SHOCKWAVES
+// ═══════════════════════════════════════════════════════════════
+function HolographicEnergyPulse() {
+  const ringRef1 = useRef();
+  const ringRef2 = useRef();
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    
+    // Wave 1
+    const s1 = (t * 1.4) % 4.5;
+    if (ringRef1.current) {
+      ringRef1.current.scale.set(s1 * 2.2, s1 * 2.2, s1 * 2.2);
+      ringRef1.current.material.opacity = Math.max(0, 1 - s1 / 4.5) * 0.45;
+    }
+
+    // Wave 2 (offset)
+    const s2 = ((t + 2.25) * 1.4) % 4.5;
+    if (ringRef2.current) {
+      ringRef2.current.scale.set(s2 * 2.2, s2 * 2.2, s2 * 2.2);
+      ringRef2.current.material.opacity = Math.max(0, 1 - s2 / 4.5) * 0.45;
+    }
+  });
+
+  return (
+    <>
+      <mesh ref={ringRef1} rotation={[Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[0.9, 1.02, 64]} />
+        <meshBasicMaterial color="#10b981" transparent opacity={0.45} side={THREE.DoubleSide} />
+      </mesh>
+      <mesh ref={ringRef2} rotation={[Math.PI / 3, Math.PI / 4, 0]}>
+        <ringGeometry args={[0.9, 1.02, 64]} />
+        <meshBasicMaterial color="#fbbf24" transparent opacity={0.45} side={THREE.DoubleSide} />
+      </mesh>
+    </>
+  );
+}
+
 // ═══════════════════════════════════════════════════════════════
 // MAIN SCENE
 // ═══════════════════════════════════════════════════════════════
 export default function Hero3D() {
-  const ring1 = CODE_SNIPPETS.filter((_, i) => i % 3 === 0);
-  const ring2 = CODE_SNIPPETS.filter((_, i) => i % 3 === 1);
-  const ring3 = CODE_SNIPPETS.filter((_, i) => i % 3 === 2);
+  const ring1 = CODE_SNIPPETS.filter((_, i) => i % 4 === 0);
+  const ring2 = CODE_SNIPPETS.filter((_, i) => i % 4 === 1);
+  const ring3 = CODE_SNIPPETS.filter((_, i) => i % 4 === 2);
+  const ring4 = CODE_SNIPPETS.filter((_, i) => i % 4 === 3);
 
   return (
     <div className="canvas-container">
@@ -413,12 +681,14 @@ export default function Hero3D() {
         gl={{ antialias: true, alpha: true }}
         dpr={[1, 1.5]}>
 
-        {/* Lighting */}
-        <ambientLight intensity={0.3} />
-        <directionalLight position={[10, 10, 5]} intensity={1} />
-        <pointLight position={[0, 0, 6]} intensity={3} color="#10b981" />
-        <pointLight position={[-10, -5, -8]} intensity={2} color="#fbbf24" />
-        <pointLight position={[10, 8, 0]} intensity={1} color="#34d399" />
+        {/* 3D Mouse Parallax Rig */}
+        <InteractiveCameraRig />
+
+        {/* Interactive Mouse Spotlight */}
+        <MouseCursorSpotlight />
+
+        {/* Dynamic Orbiting Lights */}
+        <DynamicLights />
 
         {/* Starfield */}
         <Stars radius={130} depth={70} count={8000} factor={3} saturation={0} fade speed={0.5} />
@@ -426,25 +696,39 @@ export default function Hero3D() {
         {/* 1. Central morphing geometric core */}
         <MorphingCore />
 
-        {/* 2. Code orbital rings */}
-        <CodeOrbitRing radius={5} tilt={0} speed={0.18} snippets={ring1}
-          colors={['#10b981', '#34d399', '#6ee7b7']} startAngle={0} />
-        <CodeOrbitRing radius={6.8} tilt={Math.PI / 3} speed={-0.13} snippets={ring2}
-          colors={['#fbbf24', '#f59e0b', '#fcd34d']} startAngle={Math.PI / 4} />
-        <CodeOrbitRing radius={8.5} tilt={Math.PI / 1.5} speed={0.21} snippets={ring3}
-          colors={['#34d399', '#10b981', '#a7f3d0']} startAngle={Math.PI / 2} />
+        {/* 2. Holographic Shockwave Energy Pulses */}
+        <HolographicEnergyPulse />
 
-        {/* 3. Neural network with electric connections */}
+        {/* 3. Code orbital rings */}
+        <CodeOrbitRing radius={4.8} tilt={0} speed={0.18} snippets={ring1}
+          colors={['#10b981', '#34d399', '#6ee7b7']} startAngle={0} />
+        <CodeOrbitRing radius={6.5} tilt={Math.PI / 3} speed={-0.13} snippets={ring2}
+          colors={['#fbbf24', '#f59e0b', '#fcd34d']} startAngle={Math.PI / 4} />
+        <CodeOrbitRing radius={8.2} tilt={Math.PI / 1.5} speed={0.21} snippets={ring3}
+          colors={['#06b6d4', '#22d3ee', '#67e8f9']} startAngle={Math.PI / 2} />
+        <CodeOrbitRing radius={10.0} tilt={-Math.PI / 4} speed={-0.16} snippets={ring4}
+          colors={['#a855f7', '#c084fc', '#e879f9']} startAngle={Math.PI / 3} />
+
+        {/* 4. Neural network with electric connections */}
         <NeuralNetwork />
 
-        {/* 4. DNA double helix on the side */}
+        {/* 5. DNA double helix on the side */}
         <DNAHelix />
 
-        {/* 5. Shooting comets */}
+        {/* 6. Shooting comets */}
         <ShootingComets count={8} />
 
-        {/* 6. Floating binary code dust */}
+        {/* 7. Floating binary code dust */}
         <FloatingCodeDust count={50} />
+
+        {/* 8. Quantum Cyber Wave Grid */}
+        <CyberGridWave />
+
+        {/* 9. Floating Holographic Data Cubes */}
+        <FloatingCyberCubes />
+
+        {/* 10. 3D Matrix Code Rain Streams */}
+        <MatrixCodeRain count={22} />
 
       </Canvas>
     </div>
