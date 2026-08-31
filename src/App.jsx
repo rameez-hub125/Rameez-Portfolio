@@ -429,8 +429,8 @@ function HeroSection() {
                 <span className="stat-label">CGPA (prev)</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number"><AnimatedCounter target={1} suffix="+" /></span>
-                <span className="stat-label">Years Exp.</span>
+                <span className="stat-number"><AnimatedCounter target={3} suffix="+" /></span>
+                <span className="stat-label">Months Exp.</span>
               </div>
             </div>
           </div>
