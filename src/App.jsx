@@ -94,6 +94,20 @@ const projects = [
     ],
     link: 'https://github.com/rameez-hub125/School-Managment-sys'
   },
+  {
+    icon: <FaBrain style={{ color: '#34d399' }} />,
+    title: 'AirGuard-PK — Air Quality AI System',
+    desc: 'Explainable AI-powered Air Quality Intelligence and forecasting system providing transparent insights into environmental data.',
+    longDesc: 'AirGuard-PK is an Explainable AI (XAI) system designed for monitoring, forecasting, and interpreting air quality metrics. It integrates machine learning predictive models with XAI techniques to deliver transparent, actionable air pollution insights.',
+    tags: ['Python', 'Machine Learning', 'Explainable AI', 'XAI', 'Data Analytics'],
+    features: [
+      'Explainable AI (XAI) model transparency and feature importance',
+      'Air quality data preprocessing, feature engineering, and analytics pipeline',
+      'Machine learning model training and evaluation metrics',
+      'Interactive dashboard for environmental monitoring',
+    ],
+    link: 'https://github.com/rameez-hub125/Air-Guard'
+  },
 ];
 
 const education = [
@@ -406,9 +420,7 @@ function HeroSection() {
               ]} />
             </p>
             <p className="hero-desc">
-              Motivated Computer Science graduate passionate about Artificial Intelligence,
-              Machine Learning, Computer Vision, and Full-Stack Web Development.
-              I build intelligent systems and beautiful digital experiences.
+              AI is changing how people work, solve problems, and build digital solutions, and I am interested in being part of that change. As a Computer Science graduate, I am exploring the practical use of AI, automation, and modern digital tools to turn ideas into efficient and useful solutions.
             </p>
             <div className="hero-buttons">
               <a href="#projects" className="btn btn-primary" id="hero-projects-btn"
@@ -418,20 +430,6 @@ function HeroSection() {
               <a href="/RAMEEZcs.pdf" download="Muhammad_Rameez_Raza_CV.pdf" className="btn btn-outline" id="hero-cv-btn">
                 📄 Download CV
               </a>
-            </div>
-            <div className="hero-stats">
-              <div className="stat-item">
-                <span className="stat-number"><AnimatedCounter target={4} suffix="+" /></span>
-                <span className="stat-label">Projects</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number"><AnimatedCounter target={3} suffix=".0" /><AnimatedCounter target={8} /></span>
-                <span className="stat-label">CGPA (prev)</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number"><AnimatedCounter target={3} suffix="+" /></span>
-                <span className="stat-label">Months Exp.</span>
-              </div>
             </div>
           </div>
 
@@ -538,14 +536,12 @@ function ExperienceSection() {
         <div className="timeline reveal">
           <div className="timeline-item">
             <div className="timeline-dot" />
-            <p className="timeline-date">June 2026 – September 2026</p>
-            <h3 className="timeline-role">MERN Stack Internship</h3>
-            <p className="timeline-company">Exelia Technologies</p>
+            <p className="timeline-date">June 2026 – July 2026</p>
+            <h3 className="timeline-role">Computer Vision / AI Intern</h3>
+            <p className="timeline-company">Erudite Solutions Ltd. — Islamabad, Pakistan</p>
             <ul className="timeline-desc">
-              <li>Completed a 3-month internship gaining practical experience in software development within a professional IT environment.</li>
-              <li>Worked with MERN Stack technologies (MongoDB, Express.js, React.js, and Node.js) on real-world web applications.</li>
-              <li>Contributed to frontend implementation, backend API development, and database integration.</li>
-              <li>Performed debugging and code optimization to improve overall application functionality and performance.</li>
+              <li>Worked on Computer Vision and AI concepts, developing practical understanding of image-based machine learning workflows and AI technologies.</li>
+              <li>Strengthened practical skills through a 30-hour/week hybrid internship involving both remote and office-based learning and development activities.</li>
             </ul>
           </div>
           <div className="timeline-item">
@@ -586,7 +582,6 @@ function ProjectModal({ project, onClose }) {
     <div className="modal-overlay open" onClick={e => e.target === e.currentTarget && onClose()}>
       <div className="modal-box">
         <button className="modal-close" onClick={onClose} aria-label="Close">×</button>
-        <span className="modal-icon">{project.icon}</span>
         <h3 className="modal-title">{project.title}</h3>
         <p className="modal-desc">{project.longDesc}</p>
 
@@ -620,7 +615,6 @@ function ProjectsSection() {
                 if (p.link) window.open(p.link, '_blank', 'noopener,noreferrer');
                 else setActiveProject(p);
               }}>
-              <span className="project-icon">{p.icon}</span>
               <h3 className="project-title">{p.title}</h3>
               <p className="project-desc">{p.desc}</p>
               <div className="project-tags">
