@@ -108,6 +108,20 @@ const projects = [
     ],
     link: 'https://github.com/rameez-hub125/Air-Guard'
   },
+  {
+    icon: <FaSchool style={{ color: '#10b981' }} />,
+    title: 'CareFlow — Clinical Management System',
+    desc: 'Comprehensive clinical and patient management web platform designed to streamline healthcare administrative workflows.',
+    longDesc: 'CareFlow is a full-stack clinical management platform designed to optimize patient records management, appointment scheduling, and clinical operations with a responsive frontend and robust backend infrastructure.',
+    tags: ['Full-Stack', 'React.js', 'Node.js', 'Express.js', 'JavaScript'],
+    features: [
+      'Patient registration, medical history, and records management',
+      'Appointment scheduling and clinical workflow automation',
+      'Modular full-stack architecture with frontend and backend services',
+      'Responsive, user-friendly healthcare management interface',
+    ],
+    link: 'https://github.com/rameez-hub125/Clinical-system'
+  },
 ];
 
 const education = [
