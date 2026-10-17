@@ -4,7 +4,10 @@ import Hero3D from './components/Hero3D';
 import { 
   FaBrain, FaRobot, FaEye, FaRecycle, FaTicketSimple, FaSchool, 
   FaEnvelope, FaPhone, FaLinkedin, FaGithub, FaCode, FaLaptopCode, 
-  FaServer, FaNetworkWired, FaDiagramProject
+  FaServer, FaNetworkWired, FaDiagramProject,
+  FaCertificate, FaAward, FaTrophy, FaBriefcase, FaArrowUpRightFromSquare,
+  FaGraduationCap, FaGlobe, FaLanguage, FaWandMagicSparkles,
+  FaChevronDown, FaChevronUp
 } from 'react-icons/fa6';
 import { 
   SiPython, SiTensorflow, SiReact, SiNodedotjs, SiTypescript, 
@@ -127,16 +130,212 @@ const projects = [
 const education = [
   {
     degree: 'Bachelor of Science in Computer Science',
-    school: 'University of Education, Lahore',
+    degreeCode: 'BS CS · 4-Year Degree',
+    school: 'University of Education, Lahore (Jauharabad Campus)',
     year: '2022 – 2026',
-    grade: 'CGPA: 3.08 / 4.0',
+    status: 'Graduated · Regular Session',
+    stats: [
+      { label: 'CGPA', value: '3.08 / 4.00', highlight: true },
+      { label: 'Percentage', value: '72.00%' },
+      { label: 'Credit Hours', value: '131 Cr. Hrs' },
+      { label: 'Semesters', value: '8 Completed' },
+      { label: 'Medium', value: 'English (Certified)' },
+    ],
+    transcriptFile: '/certificates/bs-computer-science-transcript.pdf',
+    englishProofFile: '/certificates/english-proficiency-certificate.pdf',
+    tags: [
+      'Artificial Intelligence',
+      'Artificial Neural Networks',
+      'Computer Vision & Image Processing',
+      'Data Structures & Algorithms',
+      'Database Systems',
+      'Web Engineering',
+      'Operating Systems',
+      'Mobile App Development'
+    ],
+    semesters: [
+      { num: 'Sem 1', gpa: '3.08', courses: 'Functional English, Calculus-I, Pakistan Studies, Fundamentals of Accounting, Applied Physics, Intro to ICT' },
+      { num: 'Sem 2', gpa: '2.74', courses: 'Programming Fundamentals, Islamic Studies, Discrete Mathematics, Communication Skills, Intro to Statistics & Probability, Digital Electronics' },
+      { num: 'Sem 3', gpa: '2.96', courses: 'Object Oriented Programming, Elementary Linear Algebra, Principles of Management, Software Engineering, Computer Networks' },
+      { num: 'Sem 4', gpa: '3.37', courses: 'Database Systems, General Methods of Teaching, Entrepreneurship, Operating System Concepts, Data Structure & Analysis of Algorithms' },
+      { num: 'Sem 5', gpa: '2.98', courses: 'Computer Organization & Assembly Language, Technical Writing, Parallel & Distributed Computing, Design & Analysis of Algorithms, Mobile App Dev, Multivariable Calculus' },
+      { num: 'Sem 6', gpa: '3.11', courses: 'Object Oriented Analysis & Design, Information Security, Theory of Automata & Formal Languages, Differential Equations, Fundamentals of Web Engineering' },
+      { num: 'Sem 7', gpa: '2.94', courses: 'Artificial Intelligence, Compiler Construction, Introduction to Machine Learning' },
+      { num: 'Sem 8', gpa: '3.50', courses: 'Professional Practices, Quran Translation, Artificial Neural Networks (Grade A), Numerical Computing (Grade A), Final Year Project (157/200)' },
+    ]
   },
   {
-    degree: 'FSc Pre-Engineering',
-    school: 'Superior Group Of Colleges',
+    degree: 'Higher Secondary School Certificate (HSSC)',
+    degreeCode: 'FSc Pre-Engineering',
+    school: 'The Superior College of Commerce for Boys / BISE Sargodha',
     year: '2019 – 2021',
-    grade: 'Percentage: 73%',
+    status: 'Completed (One Attempt)',
+    stats: [
+      { label: 'Grade', value: 'Grade A', highlight: true },
+      { label: 'Marks', value: '824 / 1100' },
+      { label: 'Percentage', value: '74.91%' },
+      { label: 'Board', value: 'BISE Sargodha' },
+      { label: 'Stream', value: 'Pre-Engineering' },
+    ],
+    transcriptFile: '/certificates/intermediate-pre-engineering-certificate.pdf',
+    tags: [
+      'Mathematics (142/200)',
+      'Physics (154/200)',
+      'Chemistry (148/200)',
+      'English (152/200)',
+      'Urdu (152/200)',
+      'Islamic & Pak Studies'
+    ],
+    subjects: [
+      { name: 'Physics', marks: '154 / 200', score: '77.0%' },
+      { name: 'English', marks: '152 / 200', score: '76.0%' },
+      { name: 'Urdu', marks: '152 / 200', score: '76.0%' },
+      { name: 'Chemistry', marks: '148 / 200', score: '74.0%' },
+      { name: 'Mathematics', marks: '142 / 200', score: '71.0%' },
+      { name: 'Pakistan Studies', marks: '38 / 50', score: '76.0%' },
+      { name: 'Islamic Education', marks: '38 / 50', score: '76.0%' },
+    ]
   },
+];
+
+const certificationsData = [
+  {
+    title: '1 Million Prompters — AI & Prompt Engineering',
+    issuer: 'Dubai Future Foundation · Dubai Centre for AI',
+    date: 'Initiative of H.H. Sheikh Hamdan bin Mohammed Al Maktoum',
+    credentialId: 'Dubai Universal Blueprint for AI',
+    docFile: '/certificates/one-million-prompters-dubai-future-foundation.pdf',
+    category: 'AI & Machine Learning',
+    group: 'ai',
+    icon: <FaWandMagicSparkles style={{ color: '#06b6d4' }} />,
+    color: '#06b6d4',
+    description: [
+      'Successfully completed the One Million Prompters initiative launched by H.H. Sheikh Hamdan bin Mohammed bin Rashid Al Maktoum, Crown Prince of Dubai.',
+      'Developed advanced skills in Prompt Engineering and Contextual Intelligence for modern AI systems, contributing to a future-ready global AI workforce.'
+    ]
+  },
+  {
+    title: 'AI in Action Job Simulation',
+    issuer: 'Forage · VISTA',
+    date: 'Completed September 2026',
+    credentialId: 'Verification: 6a91808b628256477271ae8d',
+    verifyUrl: 'https://www.theforage.com/simulations/forage/ai-in-action',
+    docFile: '/certificates/forage-ai-in-action-certificate.pdf',
+    category: 'AI & Machine Learning',
+    group: 'ai',
+    icon: <FaBrain style={{ color: '#a855f7' }} />,
+    color: '#a855f7',
+    description: [
+      'Completed practical tasks in Prompt & Contextual Engineering fluency and systematic AI prompt optimization.',
+      'Applied prompt engineering techniques to automate real-world professional workflows and enterprise tasks.'
+    ]
+  },
+  {
+    title: 'Data Science & Analytics',
+    issuer: 'HP LIFE | HP Foundation',
+    date: 'Presented June 2026',
+    credentialId: '0a0b5a23-45ae-461c-9343-4d0438ac4eff',
+    verifyUrl: 'https://www.life-global.org/certificate/0a0b5a23-45ae-461c-9343-4d0438ac4eff',
+    docFile: '/certificates/hp-data-science-analytics.pdf',
+    category: 'Technical Certification',
+    group: 'tech',
+    icon: <FaCertificate style={{ color: '#10b981' }} />,
+    color: '#10b981',
+    description: [
+      'Mastered core data science methodologies, exploratory data analysis, and modern business intelligence tools.',
+      'Developed practical proficiency in data-driven decision making, analytical frameworks, and predictive modeling.'
+    ]
+  },
+  {
+    title: 'English Language Proficiency Certificate',
+    issuer: 'University of Education, Lahore',
+    date: 'Issued August 12, 2026 · Office of Registrar',
+    credentialId: 'Ref: UE/R/5007/2026 3132',
+    docFile: '/certificates/english-proficiency-certificate.pdf',
+    category: 'Official Language Proof',
+    group: 'language',
+    icon: <FaLanguage style={{ color: '#38bdf8' }} />,
+    color: '#38bdf8',
+    description: [
+      'Official institutional certificate verifying that the entire 4-year BS Computer Science degree program was conducted with English as the medium of instruction and examinations.',
+      'Affirms professional and academic fluency in written, verbal, and technical English for global teams and international opportunities.'
+    ]
+  },
+  {
+    title: 'Marketing & Administrative Assistant',
+    issuer: 'Aye Zee Travel & Holiday (Pvt Ltd)',
+    date: 'Nov 2021 – Jul 2022 · Issued May 2023',
+    credentialId: 'Ref: AZ-EXP-2023',
+    docFile: '/certificates/aye-zee-travel-experience.pdf',
+    category: 'Experience Certificate',
+    group: 'experience',
+    icon: <FaBriefcase style={{ color: '#38bdf8' }} />,
+    color: '#38bdf8',
+    description: [
+      'Spearheaded digital operations, brand social media presence, and personalized customer support communication.',
+      'Optimized administrative workflows, executive correspondence, and systematic office record management.'
+    ]
+  },
+  {
+    title: 'Senior Vice President — PSF',
+    issuer: 'Peoples Student Federation · District Khushab',
+    date: 'Notification Date: Nov 5, 2024',
+    credentialId: 'Ref: PSF/KHB/UOE/11',
+    docFile: '/certificates/psf-senior-vice-president.pdf',
+    category: 'Leadership Appointment',
+    group: 'experience',
+    icon: <FaAward style={{ color: '#fbbf24' }} />,
+    color: '#fbbf24',
+    description: [
+      'Appointed to campus executive leadership at University of Education to represent student body governance and welfare.',
+      'Organized university youth initiatives, community outreach programs, and cross-departmental student leadership activities.'
+    ]
+  },
+  {
+    title: 'Football Championship — 2nd Position',
+    issuer: 'University of Education, Lahore',
+    date: 'Sports Gala 2025 · Lahore',
+    credentialId: 'Award: Runners-Up Trophy',
+    docFile: '/certificates/uoe-football-championship.pdf',
+    category: 'Athletic Achievement',
+    group: 'sports',
+    icon: <FaTrophy style={{ color: '#f59e0b' }} />,
+    color: '#f59e0b',
+    description: [
+      'Secured 2nd position in the inter-program football tournament representing campus at the University Sports Gala.',
+      'Demonstrated high-tempo athletic conditioning, disciplined tactical coordination, and team sportsmanship under pressure.'
+    ]
+  },
+  {
+    title: 'Inter House Sports — 1st Position',
+    issuer: 'District Public School & Inter College, Khushab',
+    date: 'Nov 2016 · Jinnah House',
+    credentialId: 'Award: Certificate of Excellence',
+    docFile: '/certificates/inter-house-sports-excellence.pdf',
+    category: 'Sports Excellence',
+    group: 'sports',
+    icon: <FaTrophy style={{ color: '#10b981' }} />,
+    color: '#10b981',
+    description: [
+      'Achieved 1st position representing Jinnah House at the annual inter-house competitive sports tournament.',
+      'Awarded Certificate of Excellence by the school principal for outstanding sportsmanship and athletic distinction.'
+    ]
+  },
+  {
+    title: 'Volleyball Championship — Certificate of Merit',
+    issuer: 'University of Education, Jauharabad',
+    date: 'March 2023 · Sports Gala LHR',
+    credentialId: 'Award: Certificate of Merit',
+    docFile: '/certificates/intercampus-sports.jpg',
+    category: 'Athletic Achievement',
+    group: 'sports',
+    icon: <FaTrophy style={{ color: '#34d399' }} />,
+    color: '#34d399',
+    description: [
+      'Commended for competitive participation and court performance in volleyball at the University Inter Campus Sports Gala.',
+      'Contributed to team defensive strategies, agility under match pressure, and active collegiate sports participation.'
+    ]
+  }
 ];
 
 const EMAILJS_SERVICE  = 'service_zhazv58';
@@ -342,12 +541,13 @@ function Navbar() {
   };
 
   const navLinks = [
-    { label: 'About',      id: 'about' },
-    { label: 'Skills',     id: 'skills' },
-    { label: 'Experience', id: 'experience' },
-    { label: 'Projects',   id: 'projects' },
-    { label: 'Education',  id: 'education' },
-    { label: 'Contact',    id: 'contact' },
+    { label: 'About',          id: 'about' },
+    { label: 'Skills',         id: 'skills' },
+    { label: 'Experience',     id: 'experience' },
+    { label: 'Projects',       id: 'projects' },
+    { label: 'Education',      id: 'education' },
+    { label: 'Certifications', id: 'certifications' },
+    { label: 'Contact',        id: 'contact' },
   ];
 
   return (
@@ -416,9 +616,31 @@ function HeroSection() {
       <div className="container">
         <div className="hero-section">
           <div className="hero-text">
-            <div className="hero-badge">
-              <span className="hero-badge-dot" />
-              Available for Opportunities
+            <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap', alignItems: 'center', marginBottom: '1.5rem' }}>
+              <div className="hero-badge" style={{ marginBottom: 0 }}>
+                <span className="hero-badge-dot" />
+                Available for Opportunities
+              </div>
+              <a
+                href="/certificates/english-proficiency-certificate.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-badge"
+                style={{
+                  marginBottom: 0,
+                  textDecoration: 'none',
+                  background: 'rgba(56, 189, 248, 0.08)',
+                  borderColor: 'rgba(56, 189, 248, 0.35)',
+                  color: '#38bdf8',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.45rem',
+                  cursor: 'pointer'
+                }}
+                title="Official English Proficiency Certificate (University of Education, Lahore)"
+              >
+                <FaGlobe style={{ fontSize: '0.85rem' }} /> English Certified (Medium of Instruction Proof) ↗
+              </a>
             </div>
             <h1 className="hero-name">
               Muhammad<br />
@@ -571,6 +793,25 @@ function ExperienceSection() {
               <li>Designed RESTful API endpoints and integrated front-end with AI backend for real-time classification.</li>
             </ul>
           </div>
+          <div className="timeline-item">
+            <div className="timeline-dot" />
+            <p className="timeline-date">November 2021 – July 2022</p>
+            <h3 className="timeline-role">Marketing &amp; Administrative Assistant</h3>
+            <p className="timeline-company">Aye Zee Travel &amp; Holiday (Pvt Ltd) — Lahore, Pakistan</p>
+            <ul className="timeline-desc">
+              <li>Managed and expanded the company's active presence across digital platforms and social media channels to enhance brand outreach.</li>
+              <li>Handled client relations, addressed customer inquiries, conducted travel correspondence, and facilitated travel-related support services.</li>
+              <li>Assisted the executive management team with daily office workflows, maintained critical documentation, and executed systematic record management.</li>
+            </ul>
+            <a
+              href="/certificates/aye-zee-travel-experience.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="timeline-btn"
+            >
+              <FaArrowUpRightFromSquare style={{ fontSize: '0.8rem' }} /> View Experience Certificate
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -650,18 +891,250 @@ function ProjectsSection() {
 // EDUCATION
 // ═══════════════════════════════════════════════════════════════
 function EducationSection() {
+  const [expandedCards, setExpandedCards] = useState({});
+
+  const toggleCard = (degree) => {
+    setExpandedCards(prev => ({
+      ...prev,
+      [degree]: !prev[degree]
+    }));
+  };
+
   return (
     <section id="education" className="section">
       <div className="container">
         <p className="section-label reveal">Academic Background</p>
-        <h2 className="section-title reveal">Education</h2>
+        <h2 className="section-title reveal">Education &amp; Official Records</h2>
         <div className="section-divider reveal" />
         <div className="education-grid">
-          {education.map((e, i) => (
-            <div key={e.degree} className="edu-card reveal" style={{ transitionDelay: `${i * 0.15}s` }}>
-              <p className="edu-degree">{e.degree}</p>
-              <p className="edu-school">{e.school}</p>
-              <p className="edu-year">{e.year} · {e.grade}</p>
+          {education.map((e, i) => {
+            const isExpanded = !!expandedCards[e.degree];
+            return (
+              <div key={e.degree} className="edu-card reveal" style={{ transitionDelay: `${i * 0.15}s` }}>
+                <div className="edu-card-top">
+                  <div className="edu-icon-box">
+                    <FaGraduationCap />
+                  </div>
+                  <div className="edu-title-group">
+                    <h3 className="edu-degree">{e.degree}</h3>
+                    <p className="edu-degree-code">{e.degreeCode}</p>
+                    <p className="edu-school">{e.school}</p>
+                    <div className="edu-meta-badges">
+                      <span className="edu-pill edu-pill-accent">{e.year}</span>
+                      <span className="edu-pill">{e.status}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Stats Row */}
+                <div className="edu-stats-grid">
+                  {e.stats.map(s => (
+                    <div key={s.label} className={`edu-stat-item ${s.highlight ? 'highlight' : ''}`}>
+                      <span className="edu-stat-label">{s.label}</span>
+                      <span className="edu-stat-value">{s.value}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Coursework / Highlight Tags */}
+                <div>
+                  <p className="edu-tags-title">Core Coursework &amp; Competencies</p>
+                  <div className="edu-tags">
+                    {e.tags.map(tag => (
+                      <span key={tag} className="edu-tag">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Actions & Breakdown Toggle */}
+                <div className="edu-actions">
+                  <a
+                    href={e.transcriptFile}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cert-btn cert-btn-primary"
+                    title="View Official Verified Academic Transcript"
+                  >
+                    <FaArrowUpRightFromSquare style={{ fontSize: '0.8rem' }} /> Official Transcript
+                  </a>
+
+                  {e.englishProofFile && (
+                    <a
+                      href={e.englishProofFile}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cert-btn cert-btn-secondary"
+                      style={{ color: '#38bdf8', borderColor: 'rgba(56, 189, 248, 0.3)' }}
+                      title="Official English Proficiency Certificate (University of Education)"
+                    >
+                      <FaGlobe style={{ fontSize: '0.8rem' }} /> English Proof ↗
+                    </a>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={() => toggleCard(e.degree)}
+                    className={`edu-breakdown-btn ${isExpanded ? 'active' : ''}`}
+                    aria-expanded={isExpanded}
+                  >
+                    {isExpanded ? (
+                      <>
+                        <FaChevronUp style={{ fontSize: '0.75rem' }} /> Hide {e.semesters ? 'Semesters' : 'Marks'}
+                      </>
+                    ) : (
+                      <>
+                        <FaChevronDown style={{ fontSize: '0.75rem' }} /> {e.semesters ? 'Semester Breakdown' : 'Subject Marks'}
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {/* Expandable Breakdown Drawer */}
+                {isExpanded && (
+                  <div className="edu-breakdown-panel">
+                    {e.semesters && (
+                      <div>
+                        <p style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--accent-secondary)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: '0.75rem' }}>
+                          Semester-by-Semester Academic Performance (CGPA 3.08 · 131 Credit Hours)
+                        </p>
+                        <div className="edu-sem-grid">
+                          {e.semesters.map(sem => (
+                            <div key={sem.num} className="edu-sem-card">
+                              <div className="edu-sem-head">
+                                <span className="edu-sem-name">{sem.num}</span>
+                                <span className="edu-sem-gpa">GPA {sem.gpa}</span>
+                              </div>
+                              <p className="edu-sem-courses">{sem.courses}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {e.subjects && (
+                      <div>
+                        <p style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--accent-secondary)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: '0.75rem' }}>
+                          BISE Sargodha Official Board Subject Marks (824 / 1100 · Grade A)
+                        </p>
+                        <div className="edu-subjects-grid">
+                          {e.subjects.map(sub => (
+                            <div key={sub.name} className="edu-subject-item">
+                              <span className="edu-sub-name">{sub.name}</span>
+                              <span className="edu-sub-marks">{sub.marks} ({sub.score})</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CERTIFICATIONS
+// ═══════════════════════════════════════════════════════════════
+function CertificationsSection() {
+  const [activeFilter, setActiveFilter] = useState('all');
+
+  const filterTabs = [
+    { id: 'all', label: 'All Credentials', count: certificationsData.length },
+    { id: 'ai', label: 'AI & Machine Learning', count: certificationsData.filter(c => c.group === 'ai').length },
+    { id: 'tech', label: 'Technical', count: certificationsData.filter(c => c.group === 'tech').length },
+    { id: 'language', label: 'English & Official Proof', count: certificationsData.filter(c => c.group === 'language').length },
+    { id: 'experience', label: 'Experience & Leadership', count: certificationsData.filter(c => c.group === 'experience').length },
+    { id: 'sports', label: 'Sports Excellence', count: certificationsData.filter(c => c.group === 'sports').length },
+  ];
+
+  const filteredCerts = activeFilter === 'all'
+    ? certificationsData
+    : certificationsData.filter(c => c.group === activeFilter);
+
+  return (
+    <section id="certifications" className="section" style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(16,185,129,0.02) 50%, transparent 100%)' }}>
+      <div className="container">
+        <p className="section-label reveal">Honors &amp; Credentials</p>
+        <h2 className="section-title reveal">Certifications &amp; Achievements</h2>
+        <div className="section-divider reveal" />
+
+        {/* Filter Tabs */}
+        <div className="cert-filters reveal">
+          {filterTabs.map(tab => (
+            <button
+              key={tab.id}
+              type="button"
+              className={`cert-filter-btn ${activeFilter === tab.id ? 'active' : ''}`}
+              onClick={() => setActiveFilter(tab.id)}
+            >
+              <span>{tab.label}</span>
+              <span className="cert-count-pill">{tab.count}</span>
+            </button>
+          ))}
+        </div>
+        
+        <div className="certifications-grid">
+          {filteredCerts.map((c, i) => (
+            <div
+              key={c.title}
+              className="cert-card reveal"
+              style={{
+                '--cert-color': c.color,
+                transitionDelay: `${i * 0.06}s`
+              }}
+            >
+              <div>
+                <div className="cert-header">
+                  <div className="cert-icon-wrapper" style={{ color: c.color }}>
+                    {c.icon}
+                  </div>
+                  <span
+                    className="cert-category"
+                    style={{ borderColor: `${c.color}40`, color: c.color }}
+                  >
+                    {c.category}
+                  </span>
+                </div>
+
+                <h3 className="cert-title">{c.title}</h3>
+                <p className="cert-issuer">{c.issuer}</p>
+
+                <div className="cert-meta-row">
+                  <span className="cert-date">{c.date}</span>
+                  {c.credentialId && <span className="cert-id">{c.credentialId}</span>}
+                </div>
+
+                <div className="cert-desc-box">
+                  <p className="cert-desc-line">{c.description[0]}</p>
+                  <p className="cert-desc-line">{c.description[1]}</p>
+                </div>
+              </div>
+
+              <div className="cert-actions">
+                <a
+                  href={c.docFile}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cert-btn cert-btn-primary"
+                >
+                  <FaArrowUpRightFromSquare style={{ fontSize: '0.8rem' }} /> View Document
+                </a>
+                {c.verifyUrl && (
+                  <a
+                    href={c.verifyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cert-btn cert-btn-secondary"
+                  >
+                    Verify Online ↗
+                  </a>
+                )}
+              </div>
             </div>
           ))}
         </div>
@@ -736,12 +1209,12 @@ function ContactSection() {
               <div className="form-group">
                 <label className="form-label" htmlFor="from_name">Your Name</label>
                 <input id="from_name" name="from_name" type="text" className="form-input"
-                  placeholder="John Doe" required />
+                  placeholder="Name" required />
               </div>
               <div className="form-group">
                 <label className="form-label" htmlFor="reply_to">Your Email</label>
                 <input id="reply_to" name="reply_to" type="email" className="form-input"
-                  placeholder="john@email.com" required />
+                  placeholder="name@email.com" required />
               </div>
             </div>
             <div className="form-group">
@@ -796,6 +1269,7 @@ function App() {
         <ExperienceSection />
         <ProjectsSection />
         <EducationSection />
+        <CertificationsSection />
         <ContactSection />
         <footer className="footer">
           <p>Designed & Built by{' '}
