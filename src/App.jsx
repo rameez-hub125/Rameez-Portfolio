@@ -616,31 +616,9 @@ function HeroSection() {
       <div className="container">
         <div className="hero-section">
           <div className="hero-text">
-            <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap', alignItems: 'center', marginBottom: '1.5rem' }}>
-              <div className="hero-badge" style={{ marginBottom: 0 }}>
-                <span className="hero-badge-dot" />
-                Available for Opportunities
-              </div>
-              <a
-                href="/certificates/english-proficiency-certificate.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hero-badge"
-                style={{
-                  marginBottom: 0,
-                  textDecoration: 'none',
-                  background: 'rgba(56, 189, 248, 0.08)',
-                  borderColor: 'rgba(56, 189, 248, 0.35)',
-                  color: '#38bdf8',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.45rem',
-                  cursor: 'pointer'
-                }}
-                title="Official English Proficiency Certificate (University of Education, Lahore)"
-              >
-                <FaGlobe style={{ fontSize: '0.85rem' }} /> English Certified (Medium of Instruction Proof) ↗
-              </a>
+            <div className="hero-badge">
+              <span className="hero-badge-dot" />
+              Available for Opportunities
             </div>
             <h1 className="hero-name">
               Muhammad<br />
@@ -1154,7 +1132,7 @@ function ContactSection() {
   const contacts = [
     { icon: <FaEnvelope style={{ color: '#10b981' }} />, type: 'Email',    value: 'mrrameez32@gmail.com',                      href: 'https://mail.google.com/mail/?view=cm&fs=1&to=mrrameez32@gmail.com', external: true },
     { icon: <FaPhone style={{ color: '#fbbf24' }} />, type: 'Phone',    value: '+92 304 6179842',                            href: 'tel:+923046179842', external: false },
-    { icon: <FaLinkedin style={{ color: '#0A66C2' }} />, type: 'LinkedIn', value: 'linkedin.com/in/rameez-raza-48bb72413',      href: 'https://www.linkedin.com/in/rameez-raza-48bb72413', external: true },
+    { icon: <FaLinkedin style={{ color: '#0A66C2' }} />, type: 'LinkedIn', value: 'linkedin.com/in/muhammad-rameez-raza',      href: 'https://www.linkedin.com/in/muhammad-rameez-raza', external: true },
     { icon: <FaGithub style={{ color: '#ffffff' }} />, type: 'GitHub',   value: 'github.com/rameez-hub125',                  href: 'https://github.com/rameez-hub125', external: true },
   ];
 
